@@ -11,7 +11,7 @@ import { LockComponent } from './lock/lock.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './404/not-found.component';
-
+import { SweetAlert } from 'sweetalert/typings/core';
 
 @NgModule({
   imports: [

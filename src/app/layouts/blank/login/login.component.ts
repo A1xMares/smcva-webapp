@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
         this.email = localStorage.getItem('email') || '';
         if ( this.email.length > 1 ) {
-          this.recuerdame = true;
+          this.router.navigate(['/lock']);
         }
 
         $('#to-recover').on("click", function() {

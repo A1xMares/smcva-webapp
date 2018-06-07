@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../../services/service.index';
 import { Usuario } from '../../../models/usuario.model';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+const swal: SweetAlert = _swal as any;
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
@@ -21,7 +24,6 @@ export class SignupComponent implements OnInit {
             return null;
           }
           return {
-            
             sonIguales: true
           };
         };
@@ -34,27 +36,22 @@ export class SignupComponent implements OnInit {
             password: new FormControl( null , Validators.required ),
             password2: new FormControl( null , Validators.required ),
             condiciones: new FormControl( false )
-          });
+          }, {validators: this.sonIguales('password', 'password2')});
     }
 
     registrarUsuario() {
-
         if ( this.forma.invalid ) {
           return;
         }
-    
         if ( !this.forma.value.condiciones ) {
-          alert("Debe aceptar los términos y condiciones");
+          swal('Importante','Debe aceptar las condiciones','warning');
           return;
         }
-    
-    
         let usuario = new Usuario(
           this.forma.value.nombre,
           this.forma.value.correo,
           this.forma.value.password
         );
-    
         this._usuarioService.crearUsuario( usuario )
                   .subscribe( resp => this.router.navigate(['/inicia-sesion']));
       }

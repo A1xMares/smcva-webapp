@@ -5,6 +5,9 @@ import { URL_SERVICIOS } from '../../config/config';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 //import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+const swal: SweetAlert = _swal as any;
 
 @Injectable()
 export class UsuarioService {
@@ -25,7 +28,6 @@ export class UsuarioService {
   }
 
   cargarStorage() {
-
     if ( localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse( localStorage.getItem('usuario') );
@@ -49,6 +51,7 @@ export class UsuarioService {
     this.usuario = null;
     this.token = '';
 
+    localStorage.removeItem('id');
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
 
@@ -64,8 +67,6 @@ export class UsuarioService {
                   this.guardarStorage( resp.id, resp.token, resp.usuario );
                   return true;
                 });
-
-
   }*/
 
   login( usuario: Usuario, recordar: boolean = false ) {
@@ -79,9 +80,7 @@ export class UsuarioService {
     let url = URL_SERVICIOS + '/login';
     return this.http.post( url, usuario )
                 .map( (resp: any) => {
-
                   this.guardarStorage( resp.id, resp.token, resp.usuario );
-
                   return true;
                 });
   }
@@ -93,7 +92,7 @@ export class UsuarioService {
 
     return this.http.post( url, usuario )
               .map( (resp: any) => {
-                alert("Usuario creado con éxito: " + usuario.email );
+                swal('Usuario creado con éxito: ' + usuario.email, 'success' );
                 return resp.usuario;
               });
   }
@@ -110,11 +109,10 @@ export class UsuarioService {
                     let usuarioDB: Usuario = resp.usuario;
                     this.guardarStorage( usuarioDB._id, this.token, usuarioDB );
                   }
-                  alert("Usuario actualizado con éxito");
+                  swal('Usuario actualizado con éxito', 'success');
 
                   return true;
                 });
-
   }
 
   /*cambiarImagen( archivo: File, id: string ) {
@@ -140,12 +138,11 @@ export class UsuarioService {
 
     return this.http.delete( url )
                 .map( resp => {
-                  alert("Usuario borrado con éxito");
+                  swal("Usuario borrado con éxito");
                   //swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success');
                   console.log(resp);
                   return true;
                 });
-
   }
 
 }

@@ -1,34 +1,164 @@
-<div class="row animated fadeIn">
+<div class="row">
+        <div class="col-12 col-md-8">
+            <div class="img-responsive">
+                <div class="card">
+                    <div class="card-header">
+                        Cuenta
+                    </div>
+                        <div id="divcuenta">
+                                <div class="row">
+                                        <div class="col-12 col-lg-2">
+                                        </div>
+                                        <div class="col-12 col-lg-8 ">
+                                            <div class="card-body">
+                                                <h3>Cuenta</h3><br>
+                                                        <div class="form-group">
+                                                            <h4>Nombre: &nbsp;{{ usuario.nombre }}</h4>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <h4>Correo: &nbsp;{{ usuario.email }}</h4>
+                                                        </div>
+                                            </div>    
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                        </div>
+                                    </div>
+                        </div>
+                            
+                        <div id="diveditar" class="hide">
+                            <div class="row">
+                                <div class="col-12 col-lg-2">
+                                </div>
+                                <div class="col-12 col-lg-8 ">
+                                    <div class="card-body">
+                                        <h3>Editar cuenta</h3>
+                                        <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar( f.value )" class="form p-t-20">
+                                                <div class="form-group">
+                                                    <label for="nombre">Nombre:</label>
+                                                    <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de usuario" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Correo del usuario:</label>
+                                                    <input [ngModel]="usuario.email" name="email" type="email" class="form-control" placeholder="Correo del usuario" required>
+                                                </div>
+                                                
+                                                <button id=""  (click)="open(content)" type="button" class="btn btn-warning responsive-buttons-1"><i class="ti-pencil"></i>&nbsp;Contraseña</button>
+                                                <button id="to-cancelar" type="button" class="btn btn-danger float-right responsive-buttons-2"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                                <button type="submit" class="btn btn-primary m-r-10 float-right responsive-buttons-3"><i class="ti-save"></i>&nbsp;Guardar</button>
+                                        </form>
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                                <form ngNativeValidate [formGroup]="formc" (ngSubmit)="contrasena()" class="form-horizontal form-material" action="index.html">
+                                                    <div class="modal-header">
+                                                    <h4 class="modal-title">Cambiar contraseña</h4>
+                                                    <button type="button" class="close" aria-label="Close" (click)="d()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                                <div class="form-group ">
+                                                                        <div class="col-xs-12">
+                                                                            <input formControlName="password" name="password" class="form-control" type="password" required placeholder="Nueva contraseña">
+                                                                        </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                        <div class="col-xs-12">
+                                                                            <input formControlName="password2" name="password2" class="form-control" type="password" required placeholder="Confirmar contraseña">
+                                                                        </div>
+                                                                </div>
+                                                                <div class="form-group" *ngIf="formc.errors?.sonIguales && !formc.pristine">
+                                                                        <p class="text-danger">
+                                                                            Las contraseñas deben ser iguales
+                                                                        </p>
+                                                                </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary" type="submit"><i class="ti-save"></i>&nbsp;Guardar</button>
+                                                        <button type="button" class="btn btn-danger" (click)="c()"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                                    </div>
+                                                </form>
+                                            </ng-template>
+                                    </div>    
+                                </div>
+                                <div class="col-12 col-lg-2">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="img-responsive">
+                <div class="card">
+                    <div class="card-header">
+                        Acciones
+                    </div>
+                    <div class="card-body text-center">
+                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <button id="to-editar" type="button" class="btn btn-outline-primary"><i class="ti-pencil"></i>&nbsp;Editar cuenta</button><br>
+                                    <button (click)="open2(elimina)" type="button" class="btn btn-outline-danger"><i class="ti-trash"></i>&nbsp;Eliminar cuenta</button><br>
+                                        <ng-template #elimina let-c="close" let-d="dismiss">
+                                                <form ngNativeValidate [formGroup]="formd" (ngSubmit)="eliminar()" class="form-horizontal form-material" action="index.html">
+                                                    <div class="modal-header">
+                                                    <h4 class="modal-title">Eliminar cuenta</h4>
+                                                    <button type="button" class="close" aria-label="Close" (click)="d()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                            <div class="form-group ">
+                                                                    <div class="col-xs-12">
+                                                                        <h3>¿Estas seguro que deseas eliminar tu cuenta? Toda tu información y los autos registrados se eliminarán también.</h3>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                                <div class="form-group ">
+                                                                        <div class="col-xs-12">
+                                                                            <input formControlName="password" name="password" class="form-control" type="password" required placeholder="Contraseña">
+                                                                        </div>
+                                                                </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-warning" type="submit"><i class="ti-trash"></i>&nbsp;Eliminar cuenta</button>
+                                                        <button type="button" class="btn btn-danger" (click)="c()"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                                    </div>
+                                                </form>
+                                        </ng-template>
+                                    <button (click)="_usuarioService.logout()" type="button" class="btn btn-outline-warning"><i class="ti-power-off"></i>&nbsp;Cerrar sesión</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+     
 
-  <div class="col-lg-7">
-      <div class="card">
-          <div class="card-body">
-              <h4 class="card-title">Perfil del usuario</h4>
-              <h6 class="card-subtitle"> nombre usuario </h6>
-
-              <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar( f.value )" class="form p-t-20">
-                  <div class="form-group">
-                      <label for="exampleInputuname">Nombre de usuario</label>
-                      <div class="input-group">
-                          <div class="input-group-addon"><i class="ti-user"></i></div>
-                          <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de usuario" required>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="exampleInputEmail1">Correo de usuario</label>
-                      <div class="input-group">
-                          <div class="input-group-addon"><i class="ti-email"></i></div>
-                          <input [ngModel]="usuario.email" [disabled]="usuario.google" name="email" type="email" class="form-control" placeholder="Correo del usuario" required>
-                      </div>
-                  </div>
-
-                  <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
-                    <i class="fa fa-save"></i>
-                    Guardar
-                  </button>
-              </form>
-          </div>
-      </div>
+<!-- <div class="row">
+    <div class="col">
+    <div class="img-responsive">
+        <div class="card">
+            <div class="card-header">
+                Cuenta
+            </div>
+            <div class="card-body">
+                    <h4>Editar usuario</h4>
+                    <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar( f.value )" class="form p-t-20">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo del usuario:</label>
+                            <input [ngModel]="usuario.email" name="email" type="email" class="form-control" placeholder="Correo del usuario" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary m-r-10 float-right">
+                          <i class="fa fa-save"></i>
+                          Guardar
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
   </div>
-
+</div>-->
 

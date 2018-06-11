@@ -1,3 +1,63 @@
-<p>
-  autos works!
-</p>
+<div class="row">
+  <div class="col-12 col-md-6 col-lg-4">
+      <div class="img-responsive">
+          <div class="card">
+              <div class="card-header">
+                  Agregar auto
+              </div>
+              <div class="card-body">
+                  <h4 class="card-title">Agrega un auto a tu consola para poder administrarlo</h4>
+                  <a routerLink="/agregar-auto" class="btn btn-primary btn-block" style="color: white!important;">Agregar auto</a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-8">
+        <div class="img-responsive">
+            <div class="card">
+                <div class="card-header">
+                    Buscar auto
+                </div>
+                <div class="card-body">
+                        <input #input (keyup)="buscarAuto( input.value )" type="text" class="form-control" placeholder="Buscar auto...">
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<div class="row">
+    <div class="col">
+    <div class="img-responsive">
+        <div class="card">
+            <div class="card-header">
+                Autos registrados, total: {{total}}
+            </div>
+            <div class="card-body">
+                    <div class="row">
+                        <div *ngFor="let sistemaAutos of autos" class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                            <div class="card">
+                                <img class="card-img-top img-responsive" center center [src]="sistemaAutos.img | imagen:'sistema'" alt="Card image cap">
+                                <div class="card-body">
+                                    <h4 class="card-title">Apodo: {{sistemaAutos.apodo }}</h4>
+                                    <p class="card-text">Modelo: {{sistemaAutos.modelo}}</p>
+                                    <p class="card-text">N. serie: {{sistemaAutos.numserie}}</p>
+                                    <button (click)="verDetalles(sistemaAutos._id)" class="btn btn-block btn-primary" style="color: white!important;">Ver detalles</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="vacio" class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                                <div class="card">
+                                    <img class="card-img-top img-responsive" center center src="assets/images/autos/primer.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Agrega tu primer auto</h4>
+                                        <p class="card-text"></p>
+                                        <button routerLink="/agregar-auto" class="btn btn-block btn-primary" style="color: white!important;">Agregar auto</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

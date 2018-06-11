@@ -16,6 +16,11 @@ File: scss
  *	7. Widgets
  *	8. Custom Templates
  */
+
+ re-captcha > div{
+    margin: 0 auto!important;
+}
+
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 @import 'variable';
 
@@ -38,3 +43,4 @@ File: scss
 @import 'colors/green-dark';
 @import 'colors/green';
 @import 'colors/default';
+

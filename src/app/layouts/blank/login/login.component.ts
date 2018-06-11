@@ -12,18 +12,21 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
     email: string;
     recuerdame: boolean = false;
-    auth2: any;
+    logeado: string;
+    //auth2: any;
     constructor(public router: Router,
         public _usuarioService: UsuarioService) {}
 
     ngOnInit() { 
        // this.googleInit();
-
+        this.logeado = localStorage.getItem('token') || '';
         this.email = localStorage.getItem('email') || '';
         if ( this.email.length > 1 ) {
           this.router.navigate(['/lock']);
         }
-
+        if ( this.logeado.length > 1 ) {
+          this.router.navigate(['/inicio']);
+        }
         $('#to-recover').on("click", function() {
             $("#loginform").slideUp();
             $("#recoverform").fadeIn();

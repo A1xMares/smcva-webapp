@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'blank-layout',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: []
 })
 export class BlankComponent {
+
+  public config: PerfectScrollbarConfigInterface = {};
+  constructor() { }
+
+    ngOnInit() {
+
+    }
 }

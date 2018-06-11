@@ -16,12 +16,12 @@ export class SidebarService {
       url: '/mis-autos',
       submenu:[]
     },
-    {
+    /*{
       titulo: 'Ayuda',
       icono: 'ti-help',
       url: '/ayuda',
       submenu:[]
-    },
+    },*/
     {
       titulo: 'Cuenta',
       icono: 'ti-user',

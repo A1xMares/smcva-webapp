@@ -10,18 +10,16 @@ import { Usuario } from '../../models/usuario.model';
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
-  usuario: Usuario;
-
+  usuario: any;
+  nombre: string;
+  email: string;
   constructor( public _usuarioService: UsuarioService ) { }
 
   ngOnInit() {
-    this.usuario = this._usuarioService.usuario;
+    this.usuario = JSON.parse(localStorage.getItem('usuario'));
+    this.nombre = this.usuario.nombre;
+    this.email = this.usuario.email;
   }
-
-
-
-
-    
     // This is for Notifications
     notifications: Object[] = [{ }];
 

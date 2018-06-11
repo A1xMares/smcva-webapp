@@ -31,7 +31,6 @@ OnInit {
     constructor( public _sidebar: SidebarService ) { }
 
     ngOnInit() {
-      console.log('hola', this.sidebarnavItems);
         $(function () {
             $(".sidebartoggler").on('click', function() {
                 if ($("#main-wrapper").hasClass("mini-sidebar")) {

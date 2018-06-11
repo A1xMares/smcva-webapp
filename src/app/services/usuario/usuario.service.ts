@@ -38,11 +38,9 @@ export class UsuarioService {
   }
 
   guardarStorage( id: string, token: string, usuario: Usuario ) {
-
     localStorage.setItem('id', id );
     localStorage.setItem('token', token );
     localStorage.setItem('usuario', JSON.stringify(usuario) );
-
     this.usuario = usuario;
     this.token = token;
   }
@@ -50,11 +48,9 @@ export class UsuarioService {
   logout() {
     this.usuario = null;
     this.token = '';
-
     localStorage.removeItem('id');
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-
     this.router.navigate(['/inicia-sesion']);
   }
 
@@ -70,13 +66,11 @@ export class UsuarioService {
   }*/
 
   login( usuario: Usuario, recordar: boolean = false ) {
-
     if ( recordar ) {
       localStorage.setItem('email', usuario.email );
     }else {
       localStorage.removeItem('email');
     }
-
     let url = URL_SERVICIOS + '/login';
     return this.http.post( url, usuario )
                 .map( (resp: any) => {
@@ -85,23 +79,18 @@ export class UsuarioService {
                 });
   }
 
-
   crearUsuario( usuario: Usuario ) {
-
     let url = URL_SERVICIOS + '/usuario';
-
     return this.http.post( url, usuario )
               .map( (resp: any) => {
-                swal('Usuario creado con éxito: ' + usuario.email, 'success' );
+                swal('Usuario creado con éxito: ', ''+ usuario.email, 'success' );
                 return resp.usuario;
               });
   }
-
+  
   actualizarUsuario( usuario: Usuario ) {
-
     let url = URL_SERVICIOS + '/usuario/' + usuario._id;
     url += '?token=' + this.token;
-
     return this.http.put( url, usuario )
                 .map( (resp: any) => {
 
@@ -109,40 +98,30 @@ export class UsuarioService {
                     let usuarioDB: Usuario = resp.usuario;
                     this.guardarStorage( usuarioDB._id, this.token, usuarioDB );
                   }
-                  swal('Usuario actualizado con éxito', 'success');
-
+                  swal('Usuario actualizado con éxito ', ''+ usuario.email,'success');
                   return true;
                 });
   }
 
-  /*cambiarImagen( archivo: File, id: string ) {
-
-    this._subirArchivoService.subirArchivo( archivo, 'usuarios', id )
-          .then( (resp: any) => {
-
-            this.usuario.img = resp.usuario.img;
-            swal( 'Imagen Actualizada', this.usuario.nombre, 'success' );
-            this.guardarStorage( id, this.token, this.usuario );
-
-          })
-          .catch( resp => {
-            console.log( resp );
-          }) ;
-
-  }*/
+  actualizarContrasena( usuario: Usuario ) {
+    let url = URL_SERVICIOS + '/usuario/contrasena/' + usuario._id;
+    url += '?token=' + this.token;
+    return this.http.put( url, usuario )
+                .map( (resp: any) => {
+                  swal('Contraseña actualizado con éxito ', ''+ usuario.email,'success');
+                  return true;
+                });
+  }
 
   borrarUsuario( id: string ) {
-
     let url = URL_SERVICIOS + '/usuario/' + id;
     url += '?token=' + this.token;
-
     return this.http.delete( url )
                 .map( resp => {
-                  swal("Usuario borrado con éxito");
+                  swal('Éxito','Usuario '+ this.usuario.email +' eliminado con éxito','success');
                   //swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success');
                   console.log(resp);
                   return true;
                 });
   }
-
 }

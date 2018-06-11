@@ -1,0 +1,184 @@
+<div class="row">
+    <div class="col-12 col-md-8">
+        <div class="img-responsive">
+            <div class="card">
+                <div class="card-header">
+                    {{apodo}}
+                </div>
+                    <div id="">
+                            <div class="row">
+                                    <div class="col-12 ">
+                                        <div class="card-body">
+                                          <h4>Historial:</h4>
+                                            <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Lattitud</th>
+                                                        <th>Longitud</th>
+                                                    </tr>
+                                                </thead>
+                            
+                                                <tbody>
+                                                    <tr *ngFor="let historia of historial" (click)="coordenadas(historia.Lat, historia.Lon, historia.Mov1, historia.Mov2,historia.Imp1,historia.Imp2,historia.Imp3,historia.Imp4,historia.Imp5)" style="cursor:pointer;">
+                                                            <td><p> {{historia.date}} </p></td>
+                                                            <td><p> {{historia.Lat}} </p></td>
+                                                            <td><p> {{historia.Lon}} </p></td>
+                                                      </tr>
+                                                  </tbody>
+                                              </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                      <div class="card-body">
+                                      <h4>Mapa:</h4>
+                                        <div #gmap style="width:100%;height:500px"></div>     
+                                      </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card-body">
+                                      <h4>Sensores:</h4>
+                                        <div class="row">
+                                          <div class="col-4">
+                                              <h5>Movimiento 1:</h5><h6 id="mov1"></h6>
+                                          </div>
+                                          <div class="col-4">
+                                              <h5>Movimiento 2:</h5><h6 id="mov2"></h6>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5>Impacto 1:</h5><h6 id="imp1"></h6>
+                                              </div>
+                                              <div class="col-4">
+                                                  <h5>Impacto 2:</h5><h6 id="imp2"></h6>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h5>Impacto 3:</h5><h6 id="imp3"></h6>
+                                                  </div>
+                                                  <div class="col-4">
+                                                      <h5>Impacto 4:</h5><h6 id="imp4"></h6>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <h5>Impacto 5:</h5><h6 id="imp5"></h6>
+                                                      </div>
+                                        </div>
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                    </div>
+                                    </div>
+                            </div>
+                            <div id="divdetalles">
+                            <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-body">
+                                            <h3>Detalles de: {{apodo}}</h3><br>
+                                                    <div class="form-group">
+                                                        <h4>Modelo: &nbsp;{{ modelo }}</h4>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h4>Apodo: &nbsp;{{ apodo }}</h4>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h4>Número de serie de sistema: &nbsp;{{ numserie }}</h4>
+                                                    </div>
+                                        </div>    
+                                    </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div id="diveditar" class="hide">
+                        <div class="row">
+                            <div class="col-12 col-lg-2">
+                            </div>
+                            <div class="col-12 col-lg-8 ">
+                                <div class="card-body">
+                                    <h3>Editar auto</h3>
+                                    <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizar( f.value )" class="form p-t-20">
+                                            <div class="form-group">
+                                                <label for="numserie">N. serie de sistema:</label>
+                                                <input [ngModel]="numserie" name="numserie" type="text" class="form-control" placeholder="N. serie de sistema" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="apodo">Apodo:</label>
+                                                <input [ngModel]="apodo" name="apodo" type="text" class="form-control" placeholder="Apodo del auto" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modelo">Modelo:</label>
+                                                <input [ngModel]="modelo" name="modelo" type="text" class="form-control" placeholder="Modelo del auto" required>
+                                            </div>
+                                            
+                                            <button id="" type="button" class="btn btn-danger float-right to-detalles responsive-buttons-2"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                            <button type="submit" class="btn btn-primary m-r-10 float-right responsive-buttons-3"><i class="ti-save"></i>&nbsp;Guardar</button>
+                                    </form>
+                                    <br><br>
+                                </div>    
+                            </div>
+                            <div class="col-12 col-lg-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divfoto" class="hide">
+                            <div class="row">
+                                    <div class="col-12">
+                                            <div class="card-body">
+                                                <input (change)="seleccionImage($event.target.files[0])" type="file">
+                                                <br><br>
+                                                <button id="to-detalles" type="button" class="btn btn-danger float-right responsive-buttons-2 float-right responsive-buttons-2"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                                <button (click)="cambiarImagen()"  type="button" class="btn btn-primary float-right responsive-buttons-3"><i class="ti-save"></i>Actualizar Foto</button>
+                                            </div>
+                                            <br><br>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="img-responsive">
+            <div class="card">
+                <div class="card-header">
+                    Acciones
+                </div>
+                <div class="card-body text-center">
+                        <div class="form-group">
+                            <img class="card-img-top img-responsive" max-height="90px" max-width="90px" center center [src]="img | imagen:'sistema'" alt="Imagen sistema">
+                        </div>
+                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                <button id="to-foto" type="button" class="btn btn-outline-primary"><i class="ti-camera"></i>&nbsp;Cambiar foto</button><br>
+                                <button id="to-editar" type="button" class="btn btn-outline-primary "><i class="ti-pencil"></i>&nbsp;Editar auto</button><br>
+                                <button (click)="open2(elimina)" type="button" class="btn btn-outline-danger"><i class="ti-trash"></i>&nbsp;Eliminar auto</button><br>
+                                    <ng-template #elimina let-c="close" let-d="dismiss">
+                                            <form ngNativeValidate [formGroup]="formd" (ngSubmit)="eliminar()" class="form-horizontal form-material" action="index.html">
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Eliminar auto</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d()">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                        <div class="form-group ">
+                                                                <div class="col-xs-12">
+                                                                    <h3>¿Estas seguro que deseas eliminar el auto? Toda su información se perdera para siempre.</h3>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-warning" type="submit"><i class="ti-trash"></i>&nbsp;Eliminar auto</button>
+                                                    <button type="button" class="btn btn-danger" (click)="c()"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                                </div>
+                                            </form>
+                                    </ng-template> 
+                                <button id="to-detalles" type="button" class="btn btn-outline-primary to-detalles"><i class="ti-zoom-in"></i>&nbsp;Ver detalles</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

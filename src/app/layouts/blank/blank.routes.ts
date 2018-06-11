@@ -15,7 +15,7 @@ const blankRoutes: Routes = [
             { path: 'inicia-sesion', component: LoginComponent, data: {titulo: 'Inicia sesión'} },
             { path: 'registro', component: SignupComponent, data: {titulo: 'Registro'}  },
             { path: 'lock', component: LockComponent, data: {titulo: 'Ingresa'}  },
-            { path: '', redirectTo: '/login', pathMatch: 'full' },
+            { path: '', redirectTo: '/inicia-sesion', pathMatch: 'full' },
             { path: '**', component: NotFoundComponent, data: {titulo: 'Error 404'}  }
         ]
     }

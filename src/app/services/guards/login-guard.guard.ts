@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { UsuarioService } from '../usuario/usuario.service';
-
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+const swal: SweetAlert = _swal as any;
 @Injectable()
 export class LoginGuardGuard implements CanActivate {
 
@@ -12,12 +14,11 @@ export class LoginGuardGuard implements CanActivate {
   ) {}
 
   canActivate(){
-
     if ( this._usuarioService.estaLogueado() ) {
       return true;
     } else {
-      console.log( 'Bloqueado por guard' );
-      this.router.navigate(['/inicia-sesion']);
+      this._usuarioService.logout();
+      swal('Atención', 'Sesión cerrada por precaución', 'warning' );
       return false;
     }
   }

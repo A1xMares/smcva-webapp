@@ -15,6 +15,10 @@ export class SignupComponent implements OnInit {
     forma: FormGroup;
     constructor(public _usuarioService: UsuarioService,
         public router: Router) { }
+    
+    resolved(captchaResponse: string) {
+      console.log(`Resolved captcha with response ${captchaResponse}:`);
+    }
 
     sonIguales( campo1: string, campo2: string ) {
         return ( group: FormGroup ) => {
@@ -35,7 +39,8 @@ export class SignupComponent implements OnInit {
             correo: new FormControl( null , [Validators.required, Validators.email] ),
             password: new FormControl( null , Validators.required ),
             password2: new FormControl( null , Validators.required ),
-            condiciones: new FormControl( false )
+            condiciones: new FormControl( false ),
+            captcha: new FormControl(false)
           }, {validators: this.sonIguales('password', 'password2')});
     }
 
@@ -45,6 +50,10 @@ export class SignupComponent implements OnInit {
         }
         if ( !this.forma.value.condiciones ) {
           swal('Importante','Debe aceptar las condiciones','warning');
+          return;
+        }
+        if ( !this.forma.value.captcha ) {
+          swal('Importante','Debe completar el re-captcha','warning');
           return;
         }
         let usuario = new Usuario(

@@ -27,8 +27,8 @@ export class LockComponent implements OnInit {
         }
     
         let usuario = new Usuario(null, this.email, forma.value.password );
-    
-        this._usuarioService.login( usuario, forma.value.recuerdame )
+        
+        this._usuarioService.login( usuario, true )
                       .subscribe( correcto => this.router.navigate(['/inicio'])  );   
     }
 

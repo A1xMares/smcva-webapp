@@ -11,11 +11,11 @@ export const ROUTES: RouteInfo[] = [
         submenu: [
         ]
     },
-    {
+    /*{
         path: '/ayuda', title: 'Ayuda', icon: 'ti-help', class: '', label: '', labelClass: '', extralink: false,
         submenu: [
         ]
-    },
+    },*/
     {
         path: '/mi-cuenta', title: 'Cuenta', icon: 'ti-user', class: '', label: '', labelClass: '', extralink: false,
         submenu: [

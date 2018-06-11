@@ -1,0 +1,183 @@
+<div class="row">
+        <div class="col-12 col-md-8">
+            <div class="img-responsive">
+                <div class="card">
+                    <div class="card-header">
+                        {{sistema.apodo}}
+                    </div>
+                        <div id="divdetalles">
+                                <div class="row">
+                                        <div class="col-12 col-lg-2">
+                                        </div>
+                                        <div class="col-12 col-lg-8 ">
+                                            <div class="card-body">
+                                                <h3>Detalles de: {{sistema.apodo}}</h3><br>
+                                                        <div class="form-group">
+                                                            <h4>Modelo: &nbsp;{{ sistema.modelo }}</h4>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <h4>Apodo: &nbsp;{{ sistema.apodo }}</h4>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <h4>Número de serie de sistema: &nbsp;{{ sistema.numserie }}</h4>
+                                                        </div>
+                                            </div>    
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                        </div>
+                                </div>
+                        </div>
+                        
+                        <div id="divfoto" class="hide">
+                                <div class="row">
+                                        <div class="col-12">
+                                                <div class="card-body">
+                                                    <input (change)="seleccionImage($event.target.files[0])" type="file">
+                                                    <br><br>
+                                                    <button id="to-detalles" type="button" class="btn btn-danger float-right responsive-buttons-2 float-right"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                                    <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button" class="btn btn-primary float-right"><i class="ti-save"></i>Actualizar Foto</button>
+                                                </div>
+                                                <br><br>
+                                        </div>
+                                </div>
+                        </div>
+                            
+                        
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="img-responsive">
+                <div class="card">
+                    <div class="card-header">
+                        Acciones
+                    </div>
+                    <div class="card-body text-center">
+                            <div class="form-group">
+                                <img class="card-img-top img-responsive" max-height="90px" max-width="90px" center center [src]="sistema.img | imagen:'sistema'" alt="Imagen sistema">
+                            </div>
+                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <button id="to-foto" type="button" class="btn btn-outline-primary"><i class="ti-camera"></i>&nbsp;Cambiar foto</button><br>
+                                    <button id="to-editar" type="button" class="btn btn-outline-primary"><i class="ti-pencil"></i>&nbsp;Editar auto</button><br>
+                                    <button (click)="open2(elimina)" type="button" class="btn btn-outline-danger"><i class="ti-trash"></i>&nbsp;Eliminar auto</button><br>
+                                        <ng-template #elimina let-c="close" let-d="dismiss">
+                                                <form ngNativeValidate [formGroup]="formd" (ngSubmit)="eliminar()" class="form-horizontal form-material" action="index.html">
+                                                    <div class="modal-header">
+                                                    <h4 class="modal-title">Eliminar auto</h4>
+                                                    <button type="button" class="close" aria-label="Close" (click)="d()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                            <div class="form-group ">
+                                                                    <div class="col-xs-12">
+                                                                        <h3>¿Estas seguro que deseas eliminar el auto? Toda su información se perdera para siempre.</h3>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                                <div class="form-group ">
+                                                                        <div class="col-xs-12">
+                                                                            <input formControlName="password" name="password" class="form-control" type="password" required placeholder="Contraseña">
+                                                                        </div>
+                                                                </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-warning" type="submit"><i class="ti-trash"></i>&nbsp;Eliminar auto</button>
+                                                        <button type="button" class="btn btn-danger" (click)="c()"><i class="ti-close"></i>&nbsp;Cancelar</button>
+                                                    </div>
+                                                </form>
+                                        </ng-template>
+                                    <button id="to-detalles" type="button" class="btn btn-outline-primary"><i class="ti-zoom-in"></i>&nbsp;Ver detalles</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-12 col-md-8">
+        <div class="img-responsive">
+            <div class="card">
+                <div class="card-header">
+                    Auto de prueba
+                </div>
+                <div class="card-body">
+                                        <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Sensores activados</th>
+                                                    <th>Lattitud</th>
+                                                    <th>Longitud</th>
+                                                </tr>
+                                            </thead>
+                        
+                                            <tbody>
+                                                <tr *ngFor="let historial of historiales" (click)="coordenadas(historial.Lat, historial.Lon)" style="cursor:pointer;">
+                                                    <td><p> {{historial.date}} </p></td>
+                                                    <td><p> {{historial.Mov1}} </p></td>
+                                                        <td><p> {{historial.Mov2}} </p></td>
+                                                        <td><p> {{historial.Imp1}} </p></td>
+                                                        <td><p> {{historial.Imp2}} </p></td>
+                                                        <td><p> {{historial.Imp3}} </p></td>
+                                                        <td><p> {{historial.Imp4}} </p></td>
+                                                        <td><p> {{historial.Imp5}} </p></td>
+                                                        <td><p> {{historial.Lat}} </p></td>
+                                                        <td><p> {{historial.Lon}} </p></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="img-responsive">
+            <div class="card">
+                <div class="card-header">
+                    Acciones
+                </div>
+                <div class="card-body">
+                    <div class="col col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                            
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>>
+  </div>

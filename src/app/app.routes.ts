@@ -3,8 +3,8 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 
 const appRoutes: Routes = [
-  //{ path: '', redirectTo: '/login', pathMatch: 'full' },
-  //{ path: '**',  redirectTo: '/404'}
+  { path: '', redirectTo: '/inicia-sesion', pathMatch: 'full' },
+  { path: '**',  redirectTo: '/inicia-sesion'}
 ];
 
 
